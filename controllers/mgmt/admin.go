@@ -23,3 +23,26 @@ func ListAdmin(c *fiber.Ctx) error {
 	data := fiber.Map{"Admins": admins}
 	return c.Render("mgmt/admin/index", data, "mgmt/base")
 }
+
+
+// 관리자 추가 폼
+func InsertForm(c *fiber.Ctx) error {
+	return c.Render("mgmt/admin/insert_form", fiber.Map{})
+}
+
+
+// 관리자 추가
+func Insert (c *fiber.Ctx) error {
+	userid  := c.FormValue("userid")
+	passwd1 := c.FormValue("passwd1")
+	passwd2 := c.FormValue("passwd2")
+	nick    := c.FormValue("nick")
+
+	if passwd1 != passwd2 {
+		return c.Redirect("/mgmt/admin")
+	}
+	db := database.DBConn
+	db.Exec("CALL insertAdmin(?, ?, ?)", userid, passwd1, nick)
+
+	return c.Redirect("/mgmt/admin")
+}

@@ -17,6 +17,8 @@ func Router() *fiber.App {
 	// app.Get("/", controllers.Index)
 	mgmtApp := app.Group("/mgmt")
 	mgmtApp.Get("/admin", mgmt.ListAdmin)
+	mgmtApp.Get("/admin/insert_form", mgmt.InsertForm)
+	mgmtApp.Post("/admin/insert", mgmt.Insert)
 
 	return app
 }
