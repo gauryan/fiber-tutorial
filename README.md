@@ -10,7 +10,7 @@ DB 연결시 GORM을 사용하지만, 제공되는 Model 메소드(ORM)를 사�
 1. [시작 (설치 및 첫페이지 만들어보기)](docs/TUTORIAL01.md)
 2. [MySQL 설치와 연결](docs/TUTORIAL02.md)
 3. [관리자 목록 보여주기](docs/TUTORIAL03.md)
-4. 관리자 추가하기
+4. [관리자 추가하기](docs/TUTORIAL04.md)
 5. 관리자 비밀번호 변경하기
 6. 관리자 수정하기
 7. 관리자 삭제하기
