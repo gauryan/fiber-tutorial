@@ -1,3 +1,5 @@
+# 관리자 목록 보여주기 : Fiber v2.x
+
 지난 글에서 admins 테이블을 생성하고, 기초 데이터 5개를 넣어두었습니다. 이제 http://xyz.test.com/mgmt/admin 를 접속하면 관리자 목록을 출력하는 페이지를 만들 것입니다. http://xyz.test.com/mgmt 에서 mgmt는 Management 를 줄인말입니다. xyz 사이트의 백엔드 프로그램이라고 생각하시면 될 듯 합니다.
 
 ### 1. 저장 프로시저 (`listAdmins`) 생성 : 관리자 목록을 뽑아오는 쿼리입니다.
