@@ -46,3 +46,41 @@ func Insert (c *fiber.Ctx) error {
 
 	return c.Redirect("/mgmt/admin")
 }
+
+
+// 관리자 비밀번호변경 폼
+// /mgnt/admin/chg_passwd_form/:id
+func ChgPasswdForm (c *fiber.Ctx) error {
+	type Admin struct {
+		Sno    int
+		Userid string
+		Passwd string
+		Nick   string
+	}
+	var admin Admin
+
+	id := c.Params("id")
+
+	db := database.DBConn
+	db.Raw("CALL getAdmin(?)", id).First(&admin)
+	data := fiber.Map{"Admin": admin}
+	return c.Render("mgmt/admin/chg_passwd_form", data)
+}
+
+
+
+// 관리자 비밀번호변경
+// /mgmt/admin/chg_passwd
+func ChgPasswd (c *fiber.Ctx) error {
+	id      := c.FormValue("id")
+	passwd1 := c.FormValue("passwd1")
+	passwd2 := c.FormValue("passwd2")
+
+	if passwd1 != passwd2 {
+		return c.Redirect("/mgmt/admin")
+	}
+	db := database.DBConn
+	db.Exec("CALL updateAdminPassword(?, ?)", id, passwd1)
+
+	return c.Redirect("/mgmt/admin")
+}
