@@ -13,6 +13,6 @@ DB 연결시 GORM을 사용하지만, 제공되는 Model 메소드(ORM)를 사�
 4. [관리자 추가하기](docs/TUTORIAL04.md)
 5. [관리자 비밀번호 변경하기](docs/TUTORIAL05.md)
 6. [관리자 수정하기](docs/TUTORIAL06.md)
-7. 관리자 삭제하기
+7. [관리자 삭제하기](docs/TUTORIAL07.md)
 8. 비밀번호 단방향암호화(SHA256) 하기
 9. 로그인/로그아웃 처리하기
