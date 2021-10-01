@@ -23,6 +23,7 @@ func Router() *fiber.App {
 	mgmtApp.Post("/admin/chg_passwd", mgmt.ChgPasswd)
 	mgmtApp.Get("/admin/update_form/:id", mgmt.UpdateForm)
 	mgmtApp.Post("/admin/update", mgmt.Update)
+	mgmtApp.Get("/admin/delete/:id", mgmt.Delete)
 
 	return app
 }

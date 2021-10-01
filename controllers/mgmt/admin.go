@@ -110,3 +110,13 @@ func Update(c *fiber.Ctx) error {
 
 	return c.Redirect("/mgmt/admin")
 }
+
+// 관리자 삭제
+// /mgmt/admin/delete/{id}
+func Delete(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	db := database.DBConn
+	db.Exec("CALL deleteAdmin(?)", id)
+	return c.Redirect("/mgmt/admin")
+}
