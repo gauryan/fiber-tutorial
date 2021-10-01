@@ -24,19 +24,17 @@ func ListAdmin(c *fiber.Ctx) error {
 	return c.Render("mgmt/admin/index", data, "mgmt/base")
 }
 
-
 // 관리자 추가 폼
 func InsertForm(c *fiber.Ctx) error {
 	return c.Render("mgmt/admin/insert_form", fiber.Map{})
 }
 
-
 // 관리자 추가
-func Insert (c *fiber.Ctx) error {
-	userid  := c.FormValue("userid")
+func Insert(c *fiber.Ctx) error {
+	userid := c.FormValue("userid")
 	passwd1 := c.FormValue("passwd1")
 	passwd2 := c.FormValue("passwd2")
-	nick    := c.FormValue("nick")
+	nick := c.FormValue("nick")
 
 	if passwd1 != passwd2 {
 		return c.Redirect("/mgmt/admin")
@@ -47,10 +45,9 @@ func Insert (c *fiber.Ctx) error {
 	return c.Redirect("/mgmt/admin")
 }
 
-
 // 관리자 비밀번호변경 폼
 // /mgnt/admin/chg_passwd_form/:id
-func ChgPasswdForm (c *fiber.Ctx) error {
+func ChgPasswdForm(c *fiber.Ctx) error {
 	type Admin struct {
 		Sno    int
 		Userid string
@@ -67,12 +64,10 @@ func ChgPasswdForm (c *fiber.Ctx) error {
 	return c.Render("mgmt/admin/chg_passwd_form", data)
 }
 
-
-
 // 관리자 비밀번호변경
 // /mgmt/admin/chg_passwd
-func ChgPasswd (c *fiber.Ctx) error {
-	id      := c.FormValue("id")
+func ChgPasswd(c *fiber.Ctx) error {
+	id := c.FormValue("id")
 	passwd1 := c.FormValue("passwd1")
 	passwd2 := c.FormValue("passwd2")
 
@@ -81,6 +76,37 @@ func ChgPasswd (c *fiber.Ctx) error {
 	}
 	db := database.DBConn
 	db.Exec("CALL updateAdminPassword(?, ?)", id, passwd1)
+
+	return c.Redirect("/mgmt/admin")
+}
+
+// 관리자 수정 폼
+// /mgnt/admin/update_form/{id}
+func UpdateForm(c *fiber.Ctx) error {
+	type Admin struct {
+		Sno    int
+		Userid string
+		Passwd string
+		Nick   string
+	}
+	var admin Admin
+
+	id := c.Params("id")
+
+	db := database.DBConn
+	db.Raw("CALL getAdmin(?)", id).First(&admin)
+	data := fiber.Map{"Admin": admin}
+	return c.Render("mgmt/admin/update_form", data)
+}
+
+// 관리자 수정
+// /mgmt/admin/update
+func Update(c *fiber.Ctx) error {
+	id := c.FormValue("id")
+	nick := c.FormValue("nick")
+
+	db := database.DBConn
+	db.Exec("CALL updateAdmin(?, ?)", id, nick)
 
 	return c.Redirect("/mgmt/admin")
 }
